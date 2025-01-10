@@ -8,6 +8,7 @@ from chat import Chat
 
 if __name__ == "__main__":
     chat = Chat()
+    st.set_page_config(page_title="My Chatbot")
 
     # 텍스트 모드
     st.title("Chat with AI")
