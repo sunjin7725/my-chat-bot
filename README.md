@@ -14,6 +14,7 @@ OpenAI API를 활용한 대화형 AI 챗봇 애플리케이션입니다.
 - OpenAI API 키
 
 ### 설치 방법
+#### 로컬
 1. 저장소 클론
 ```bash
 git clone https://github.com/sunjin7725/my-chat-bot.git
@@ -31,6 +32,27 @@ pip install -r requirements.txt
 4. 프로젝트 실행
 ```bash
 streamlit run run.py
+```
+
+#### 도커
+1. Docker와 Docker Compose가 설치되어 있는지 확인
+
+2. secret.yaml 파일 설정
+- secret.yaml.example을 참고하여 secret.yaml 파일을 생성하고 OpenAI API 키를 설정
+
+3. Docker 컨테이너 빌드 및 실행
+```bash
+docker-compose up -d
+```
+
+4. 컨테이너 정지
+```bash
+docker-compose down
+```
+
+5. 로그 확인
+```bash
+docker-compose logs -f
 ```
 
 ## 프로젝트 구조
