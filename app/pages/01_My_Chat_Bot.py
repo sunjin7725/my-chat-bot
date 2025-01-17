@@ -1,17 +1,18 @@
 """
-This file is the main file for the chatbot app.
+This file is "My Chat Bot" app page.
 """
 
 import streamlit as st
 
-from chat import Chat
+from utils.chat import Chat
 
 if __name__ == "__main__":
     chat = Chat()
-    st.set_page_config(page_title="My Chatbot")
 
-    # 텍스트 모드
-    st.title("Chat with AI")
+    TITLE = "My Chat Bot"
+    st.set_page_config(page_title=TITLE, page_icon="🦑")
+
+    st.markdown(f"# {TITLE}")
 
     if "chat" not in st.session_state:
         st.session_state.chat = Chat()

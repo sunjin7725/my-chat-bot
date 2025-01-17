@@ -4,7 +4,7 @@ This is an example of how to use the OpenAI API to ask a question using a microp
 
 from typing import List
 
-from client import OpenAIClient
+from utils.client import OpenAIClient
 
 
 STARTING_PROMPT = """
