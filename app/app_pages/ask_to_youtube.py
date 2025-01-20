@@ -6,12 +6,6 @@ import streamlit as st
 
 from utils.ask_for_youtube import get_answer_in_youtube, get_youtube_video_id_from_url
 
-
-TITLE = "Ask to Youtube"
-st.set_page_config(layout="wide", page_title=TITLE, page_icon="🦒")
-
-st.markdown(f"# {TITLE}")
-
 if "video_id" not in st.session_state:
     st.session_state.video_id = ""
 

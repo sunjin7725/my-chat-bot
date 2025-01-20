@@ -10,7 +10,7 @@ OpenAI API를 활용한 대화형 AI 챗봇 애플리케이션입니다.
 ## 시작하기
 
 ### 필수 요구사항
-- Python 3.8 이상
+- Python 3.9 이상
 - OpenAI API 키
 
 ### 설치 방법

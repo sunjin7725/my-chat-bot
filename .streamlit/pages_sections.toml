@@ -1,5 +1,5 @@
 [[pages]]
-path = "pages/00_home.py"
+path = "app_pages/home.py"
 name = "Home"
 icon = "🏠"
 
@@ -9,11 +9,11 @@ icon = "🎈️"
 is_section = true
 
 [[pages]]
-path = "pages/01_my_chat_bot.py"
+path = "app_pages/my_chat_bot.py"
 name = "My Chat Bot"
 icon = ":robot_face:"
 
 [[pages]]
-path = "pages/02_ask_to_youtube.py"
+path = "app_pages/ask_to_youtube.py"
 name = "Ask to Youtube"
 icon = ":clown_face:"
