@@ -1,30 +1,19 @@
 """
-This file is the main file for the chatbot app.
+This is index page for my app.
 """
 
 import streamlit as st
 
-from chat import Chat
+from st_pages import add_page_title, get_nav_from_toml
 
-if __name__ == "__main__":
-    chat = Chat()
-    st.set_page_config(page_title="My Chatbot")
 
-    # 텍스트 모드
-    st.title("Chat with AI")
+st.set_page_config(layout="wide")
 
-    if "chat" not in st.session_state:
-        st.session_state.chat = Chat()
 
-    for content in st.session_state.chat.history:
-        if content["role"] != "system":
-            with st.chat_message(content["role"]):
-                st.markdown(content["content"])
+nav = get_nav_from_toml(".streamlit/pages_sections.toml")
 
-    prompt = st.chat_input("메시지를 입력하세요")
-    if prompt:
-        with st.chat_message("user"):
-            st.markdown(prompt)
-        with st.chat_message("assistant", avatar="🤖"):
-            response = st.session_state.chat.discuss(prompt)
-            st.markdown(response)
+pg = st.navigation(nav)
+
+add_page_title(pg)
+
+pg.run()
