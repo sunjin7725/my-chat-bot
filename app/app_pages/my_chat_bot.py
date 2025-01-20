@@ -9,11 +9,6 @@ from utils.chat import Chat
 
 chat = Chat()
 
-TITLE = "My Chat Bot"
-st.set_page_config(layout="wide", page_title=TITLE, page_icon="🦑")
-
-st.markdown(f"# {TITLE}")
-
 if "chat" not in st.session_state:
     st.session_state.chat = Chat()
 
