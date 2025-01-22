@@ -15,6 +15,6 @@ if prompt:
         st.markdown(prompt)
         st.session_state.chat_history.append({"role": "user", "content": prompt})
     with st.chat_message("assistant"):
-        response = chat_with_search(prompt)
+        response = chat_with_search(prompt, st.session_state.chat_history)
         st.markdown(response)
         st.session_state.chat_history.append({"role": "assistant", "content": response})

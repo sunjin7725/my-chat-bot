@@ -51,7 +51,7 @@ class OpenAIClient:
         if not hasattr(self, "client") or self.client is None:
             self.client = OpenAI(api_key=__api_key)
 
-        self.model = "gpt-4o-mini"
+        self.model = "gpt-4o"
 
     def __del__(self):
         if hasattr(self, "client") and self.client is not None:
@@ -240,6 +240,41 @@ class KakaoAPIClient:
         return json.loads(response.text.replace("<b>", "").replace("</b>", ""))
 
 
+class GoogleAPIClient:
+    """
+    This class is a client for interacting with the Google Custom Search API.
+    It provides methods to perform searches based on user queries.
+
+    Attributes:
+        cx (str): The custom search engine ID.
+        key (str): The API key for accessing the Google Custom Search API.
+        base_url (str): The base URL for the Google Custom Search API.
+    """
+
+    def __init__(self):
+        with open(secret_path, "r", encoding="utf-8") as f:
+            __secret = yaml.safe_load(f)
+        self.cx = __secret["google"]["cx"]
+        self.key = __secret["google"]["key"]
+
+        self.base_url = "https://www.googleapis.com/customsearch/v1"
+
+    def search(self, query):
+        """
+        This method performs a search using the Google Custom Search API based on the provided query.
+
+        Args:
+            query (str): The search query.
+
+        Returns:
+            dict: The search results from the Google Custom Search API.
+        """
+        __search_query = make_search_query(query)
+        params = {"key": self.key, "cx": self.cx, "q": __search_query}
+        response = requests.get(self.base_url, params=params, timeout=10)
+        return json.loads(response.text.replace("<b>", "").replace("</b>", ""))
+
+
 def get_search_service_type(query):
     """
     This method extracts the type of search service based on the provided query.
@@ -409,6 +444,16 @@ def get_sorting_type(query):
 
 
 def is_need_search(query):
+    """
+    This function determines if the provided QUERY indicates a need for an internet search.
+
+    Args:
+        query (str): The search query to analyze.
+
+    Returns:
+        str: 'TRUE' if the QUERY suggests that an internet search is needed,
+              'FALSE' if it does not suggest a need for an internet search.
+    """
     open_ai_client = OpenAIClient()
 
     prompt = """
@@ -436,7 +481,3 @@ def is_need_search(query):
         ]
     )
     return response
-
-
-if __name__ == "__main__":
-    print(is_need_search("침투부 영상에서 제일 재밌는 영상 추천해줘"))
