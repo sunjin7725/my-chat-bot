@@ -18,6 +18,7 @@ COPY app/ /app/
 EXPOSE 8501
 
 # 실행 권한 설정
-RUN chmod +x /app/Hello.py
+RUN chmod +x /app/run.py
 
-CMD ["streamlit", "run", "/app/Hello.py", "--server.address", "0.0.0.0", "--server.port", "8501"]
+WORKDIR /app
+CMD ["streamlit", "run", "run.py", "--server.address", "0.0.0.0", "--server.port", "8501"]

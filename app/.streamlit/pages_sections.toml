@@ -17,3 +17,8 @@ icon = ":robot_face:"
 path = "app_pages/ask_to_youtube.py"
 name = "Ask to Youtube"
 icon = ":clown_face:"
+
+[[pages]]
+path = "app_pages/ask_with_search.py"
+name = "Ask based search result"
+icon = ":star2:"
