@@ -7,7 +7,7 @@ from urllib.parse import urlparse, parse_qs
 
 from youtube_transcript_api import YouTubeTranscriptApi
 
-from utils.client import OpenAIClient
+from common.client import OpenAIClient
 
 
 def get_youtube_video_id_from_url(url: str) -> str:
@@ -40,7 +40,7 @@ def get_youtube_transcript(video_id: str, languages: Iterable[str] = ("ko",)) ->
     return YouTubeTranscriptApi.get_transcript(video_id, languages=languages)
 
 
-def get_answer_in_youtube(video_id: str, question: str) -> str:
+def get_answer_in_youtube(video_id: str, question: str, history=None) -> str:
     """
     This function is used to get the summary of a youtube video.
 
@@ -50,16 +50,23 @@ def get_answer_in_youtube(video_id: str, question: str) -> str:
     Returns:
         str: The summary of the youtube video.
     """
-    transcript = get_youtube_transcript(video_id)
-    text_list = [f"{t.get('start')}s: {t.get('text')}" for t in transcript]
-    text = " ".join(text_list)
+    if history is None:
+        history = []  # Initialize history as an empty list if None
+
+    if video_id:
+        transcript = get_youtube_transcript(video_id)
+        text_list = [f"{t.get('start')}s: {t.get('text')}" for t in transcript]
+        text = " ".join(text_list)
+    else:
+        text = None
 
     client = OpenAIClient()
 
     prompt_role = """
         You are a helpful assistant.
-        You are given a TRANSCRIPT of a youtube video.
-        You should answer USER`s question.
+        When the TRANSCRIPT is unavailable, you should respond to the user's inquiry. 
+        If a TRANSCRIPT of a YouTube video is provided, you should address the user's questions related to that video.
+        When a user asks, 'What can you do?', respond with: 'If you are provided with a YouTube video URL, I can answer questions based on that video.
         The answer is not politcal. You have to answer friendly.
     """
 
@@ -68,4 +75,4 @@ def get_answer_in_youtube(video_id: str, question: str) -> str:
         TRANSCRIPT: {text}
         USER: {question}
     """
-    return client.chat([{"role": "user", "content": prompt}])
+    return client.chat(history + [{"role": "user", "content": prompt}])
