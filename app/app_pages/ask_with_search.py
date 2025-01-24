@@ -1,3 +1,10 @@
+"""
+This module provides the Streamlit page for asking questions based on search results.
+
+It allows users to input questions and receive answers generated from the search results
+using the chat_with_search function.
+"""
+
 import streamlit as st
 
 from common.ask_with_search import chat_with_search

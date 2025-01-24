@@ -39,15 +39,18 @@ def chat_with_search(question, history=None):
         if sorting_type == "LATEST":
             naver_search = naver_client.search(query=question, sort="date")
             kakao_search = kakao_client.search(query=question, sort="recency")
+            google_search = None
         else:
             naver_search = naver_client.search(query=question)
             kakao_search = kakao_client.search(query=question)
-        google_search = google_client.search(query=question)
+            google_search = google_client.search(query=question)
         real_search = {
             "search time": naver_search.get("lastBuildDate"),
-            "items": list(naver_search.get("items"))
-            + list(kakao_search.get("documents"))
-            + list(google_search.get("items")),
+            "items": (
+                list(naver_search.get("items"))
+                + list(kakao_search.get("documents"))
+                + (list(google_search.get("items")) if google_search else [])
+            ),
         }
 
     prompt_role = """
