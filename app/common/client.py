@@ -162,6 +162,12 @@ class NaverAPIClient:
         return json.loads(response.text.replace("<b>", "").replace("</b>", ""))
 
     def get_url(self):
+        """
+        Returns the base URL for the API client.
+
+        Returns:
+            str: The base URL as a string.
+        """
         return self.base_url
 
 
@@ -278,6 +284,12 @@ class GoogleAPIClient:
         return json.loads(response.text.replace("<b>", "").replace("</b>", ""))
 
     def get_url(self):
+        """
+        Returns the base URL for the API client.
+
+        Returns:
+            str: The base URL as a string.
+        """
         return self.base_url
 
 
