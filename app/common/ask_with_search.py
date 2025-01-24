@@ -3,6 +3,8 @@ This module provides functionality to interact with the Naver API
 and to facilitate chat responses based on search results.
 """
 
+from datetime import datetime
+
 from common.client import (
     NaverAPIClient,
     OpenAIClient,
@@ -53,8 +55,9 @@ def chat_with_search(question, history=None):
             ),
         }
 
-    prompt_role = """
+    prompt_role = f"""
         You are a helpful assistant.
+        Today is {datetime.now()}.
         When a user asks a question, use the provided search results (REAL_SEARCH) to formulate your response. 
         If REAL_SEARCH is not available, provide a general answer based on your knowledge.
         You should generally respond in a formal manner. However, if the user requests to change your chat style, you should switch to what they need.
