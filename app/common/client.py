@@ -161,6 +161,15 @@ class NaverAPIClient:
         response = requests.get(url, params=params, headers=self.headers, timeout=10)
         return json.loads(response.text.replace("<b>", "").replace("</b>", ""))
 
+    def get_url(self):
+        """
+        Returns the base URL for the API client.
+
+        Returns:
+            str: The base URL as a string.
+        """
+        return self.base_url
+
 
 class KakaoAPIClient:
     """
@@ -273,6 +282,15 @@ class GoogleAPIClient:
         params = {"key": self.key, "cx": self.cx, "q": __search_query}
         response = requests.get(self.base_url, params=params, timeout=10)
         return json.loads(response.text.replace("<b>", "").replace("</b>", ""))
+
+    def get_url(self):
+        """
+        Returns the base URL for the API client.
+
+        Returns:
+            str: The base URL as a string.
+        """
+        return self.base_url
 
 
 def get_search_service_type(query):
